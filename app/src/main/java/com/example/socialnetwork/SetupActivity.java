@@ -1,5 +1,9 @@
 package com.example.socialnetwork;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -7,6 +11,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -24,6 +30,8 @@ public class SetupActivity extends AppCompatActivity {
     private FirebaseAuth mauth;                     //Firebase
     private DatabaseReference Userref;
 
+    private ProgressDialog loadingbar;
+
 
     String currentUserID;
 
@@ -39,7 +47,7 @@ public class SetupActivity extends AppCompatActivity {
             profilephoto= (CircleImageView) findViewById(R.id.setup_profilephoto);
 
 
-
+        loadingbar= new ProgressDialog(this);
 
             mauth= FirebaseAuth.getInstance();
 
@@ -73,7 +81,7 @@ public class SetupActivity extends AppCompatActivity {
         }
         if(TextUtils.isEmpty(country))
         {
-            Toast.makeText(this, "Please write your country...", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please write your country...", Toast.LENGTH_LONG).show();
         }
         else
         {
@@ -85,6 +93,36 @@ public class SetupActivity extends AppCompatActivity {
             userMap.put("gender", "none");
             userMap.put("dob", "none");
             userMap.put("relationshipstatus", "none");
+
+
+            loadingbar.setTitle("Saving Inforation");
+            loadingbar.setMessage("Please Wait while we are Saving in your account");
+            loadingbar.show();
+            loadingbar.setCanceledOnTouchOutside(true);     //no touch works until Authentication
+            Userref.updateChildren(userMap).addOnCompleteListener(new OnCompleteListener() {
+                @Override
+                public void onComplete(@NonNull Task task)
+                {
+                    String message="";
+                        if(task.isSuccessful())
+                        {       SendUserToMainActivity();
+                            Toast.makeText(SetupActivity.this, "Your account is created successfully",Toast.LENGTH_SHORT).show();
+                            loadingbar.dismiss();
+                        }
+                        else
+                             message =task.getException().getMessage();
+                            Toast.makeText(SetupActivity.this, "Error Occured"+ message,Toast.LENGTH_SHORT).show();
+                            loadingbar.dismiss();
+                }
+            });
         }
+    }
+
+    private void SendUserToMainActivity()
+    {
+        Intent LoginIntent =  new Intent(SetupActivity.this, MainActivity.class);
+        LoginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(LoginIntent);
+        finish();
     }
 }
