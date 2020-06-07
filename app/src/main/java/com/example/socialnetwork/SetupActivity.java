@@ -1,9 +1,12 @@
 package com.example.socialnetwork;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.media.Image;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -33,6 +36,8 @@ public class SetupActivity extends AppCompatActivity {
     private ProgressDialog loadingbar;
 
 
+     final static int  Gallery_Pick =1;                                       //for user to pick image from gallery
+
     String currentUserID;
 
     @Override
@@ -47,11 +52,11 @@ public class SetupActivity extends AppCompatActivity {
             profilephoto= (CircleImageView) findViewById(R.id.setup_profilephoto);
 
 
-        loadingbar= new ProgressDialog(this);
+            loadingbar= new ProgressDialog(this);
 
             mauth= FirebaseAuth.getInstance();
 
-        currentUserID=mauth.getCurrentUser().getUid();
+            currentUserID=mauth.getCurrentUser().getUid();
             Userref=FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID);
 
 
@@ -63,6 +68,27 @@ public class SetupActivity extends AppCompatActivity {
                         SaveAccountSetupInfo();
                 }
             });
+
+
+            profilephoto.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {                               //for user to pick image from gallery
+                    Intent galleryIntent =new Intent();
+                    galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
+                    startActivityForResult(galleryIntent,Gallery_Pick);
+                }
+            });
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+
+        super.onActivityResult(requestCode, resultCode, data);
+            if(requestCode==Gallery_Pick && resultCode==RESULT_OK && data!=null)
+            {
+                Uri ImageUri = data.getData();
+            }
     }
 
     private void SaveAccountSetupInfo()
@@ -126,3 +152,4 @@ public class SetupActivity extends AppCompatActivity {
         finish();
     }
 }
+///rohan
