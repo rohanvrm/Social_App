@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SetupActivity">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/setup_profilephoto"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:src="@drawable/profile"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"/>
+
+    <EditText
+        android:id="@+id/login_setup_fullname"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/setup_profilephoto"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/inputs"
+        android:ems="10"
+        android:hint="Fullname"
+        android:gravity="center"
+        android:drawableLeft="@drawable/name"
+        android:padding="6dp"
+        android:typeface="sans"/>
+
+    <EditText
+        android:id="@+id/login_setup_username"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/login_setup_fullname"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/inputs"
+        android:ems="10"
+        android:hint="UserName"
+        android:gravity="center"
+        android:drawableLeft="@drawable/username"
+        android:padding="6dp"
+        android:typeface="sans"/>
+
+    <EditText
+        android:id="@+id/login_setup_country"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/login_setup_username"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/inputs"
+        android:ems="10"
+        android:drawableLeft="@drawable/country"
+        android:hint="Country"
+        android:gravity="center"
+        android:padding="6dp"
+        android:typeface="sans"/>
+
+    <Button
+        android:id="@+id/setup_button"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/login_setup_country"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="35dp"
+        android:background="@drawable/buttons"
+        android:text=" Save"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:textSize="15dp"
+        android:typeface="sans" />
+</RelativeLayout>
