@@ -53,8 +53,8 @@ public class MainActivity extends AppCompatActivity {
 
         drawerLayout= (DrawerLayout) findViewById(R.id.drawable_layout);                    // Small toggle button on hme screen
         navigationView= (NavigationView) findViewById(R.id.navigation_view);
-       drawerLayout.addDrawerListener(actionBarDrawerToggle);                                        // Small toggle button on home screen
-       // actionBarDrawerToggle.syncState();
+        drawerLayout.addDrawerListener(actionBarDrawerToggle);                                        // Small toggle button on home screen
+        // actionBarDrawerToggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         actionBarDrawerToggle= new ActionBarDrawerToggle(MainActivity.this,drawerLayout, R.string.drawer_open, R.string.drawer_close);     // Small toggle button on hme screen
 
@@ -95,10 +95,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot)
             {
-                    if(!dataSnapshot.hasChild(current_user_id))                 //Most important validation in whole app
-                    {
-                        SendUserToSetupActivity();                    //if user setup information is not in the database then move user to Setup Activity
-                    }
+                if(!dataSnapshot.hasChild(current_user_id))                 //Most important validation in whole app
+                {
+                    SendUserToSetupActivity();                    //if user setup information is not in the database then move user to Setup Activity
+                }
             }
 
             @Override
@@ -149,11 +149,11 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case R.id.nav_logout:
-            //Toast.makeText(this, "Logout",Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "Logout",Toast.LENGTH_SHORT).show();
                 mAuth.signOut();
                 SendUserTologinActivity();
 
-            break;
+                break;
 
         }    }
 

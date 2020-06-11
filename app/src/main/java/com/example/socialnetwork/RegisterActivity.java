@@ -47,7 +47,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View view)
             {
-                    Createnewaccout();
+                Createnewaccout();
             }
         });
 
@@ -81,27 +81,28 @@ public class RegisterActivity extends AppCompatActivity {
 
         else
         {           loadingbar.setTitle("Creating New Account");
-                    loadingbar.setMessage("Please Wait while we are creating your new account");
-                    loadingbar.show();
-                    loadingbar.setCanceledOnTouchOutside(true);     //no touch works until Authentication
+            loadingbar.setMessage("Please Wait while we are creating your new account");
+            loadingbar.show();
+            loadingbar.setCanceledOnTouchOutside(true);     //no touch works until Authentication
 
 
-                mauth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        String message="---";
-                        if(task.isSuccessful())
-                        {
-                            SendUserToSetupActivity();
+            mauth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    String message="---";
+                    if(task.isSuccessful())
+                    {
+                        SendUserToSetupActivity();
 
-                            Toast.makeText(RegisterActivity.this, "You are Authenticated Successfully",Toast.LENGTH_SHORT).show();
-                        }
-                        else
-                            message = task.getException().getMessage();
-                            Toast.makeText(RegisterActivity.this, "Error occured"+ message,Toast.LENGTH_SHORT).show();
-                            loadingbar.dismiss();
+                        Toast.makeText(RegisterActivity.this, "You are Authenticated Successfully",Toast.LENGTH_SHORT).show();
                     }
-                });
+                    else {
+                        message = task.getException().getMessage();
+                        Toast.makeText(RegisterActivity.this, "Error occured" + message, Toast.LENGTH_SHORT).show();
+                        loadingbar.dismiss();
+                    }
+                }
+            });
         }
 
     }
@@ -135,4 +136,3 @@ public class RegisterActivity extends AppCompatActivity {
 
 
 }
-//rohan

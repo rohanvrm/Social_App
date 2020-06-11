@@ -23,12 +23,12 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private Button LoginButton;
-     private EditText UserEmail, UserPassword;
-     private TextView NeedNewAccountLink;
+    private EditText UserEmail, UserPassword;
+    private TextView NeedNewAccountLink;
 
 
 
-     private FirebaseAuth mauth;
+    private FirebaseAuth mauth;
 
     private ProgressDialog loadingbar;
 
@@ -109,7 +109,7 @@ public class LoginActivity extends AppCompatActivity {
                     if(task.isSuccessful())
                     {
 
-                            SendUserToMainActivity();
+                        SendUserToMainActivity();
                         Toast.makeText(LoginActivity.this, "Logged In Successfully",Toast.LENGTH_SHORT);
 
 
@@ -117,7 +117,7 @@ public class LoginActivity extends AppCompatActivity {
                         loadingbar.dismiss();
                     }
                     else
-                        {
+                    {
                         message = task.getException().getMessage();
                         Toast.makeText(LoginActivity.this, "Error" + message, Toast.LENGTH_SHORT);
                         loadingbar.dismiss();
