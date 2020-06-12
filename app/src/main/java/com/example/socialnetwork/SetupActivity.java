@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -31,6 +32,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
@@ -99,7 +101,24 @@ public class SetupActivity extends AppCompatActivity {
                 startActivityForResult(galleryIntent, Gallery_Pick);             //user picks one image
             }
         });
+        Userref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot)
+            {
+                if(dataSnapshot.exists())
+                {
+                    ImageView imageView= (ImageView) findViewById(R.id.setup_profilephoto);
+                    Picasso.get().load("http://i.imgur.com/DvpvklR.png").into(imageView);
+                    //String image= dataSnapshot.child("profilephoto").getValue().toString();
+                    //Picasso.with(SetupActivity.this).load(image).placeholder(R.drawable.profile_icon).into(profilephoto);
+                }
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
 

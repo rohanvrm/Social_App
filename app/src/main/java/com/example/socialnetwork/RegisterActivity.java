@@ -80,10 +80,7 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
         else
-        {           loadingbar.setTitle("Creating New Account");
-            loadingbar.setMessage("Please Wait while we are creating your new account");
-            loadingbar.show();
-            loadingbar.setCanceledOnTouchOutside(true);     //no touch works until Authentication
+        {
 
 
             mauth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -101,8 +98,13 @@ public class RegisterActivity extends AppCompatActivity {
                         Toast.makeText(RegisterActivity.this, "Error occured" + message, Toast.LENGTH_SHORT).show();
                         loadingbar.dismiss();
                     }
+
                 }
             });
+            loadingbar.setTitle("Creating New Account");
+            loadingbar.setMessage("Please Wait while we are creating your new account");
+            loadingbar.show();
+            loadingbar.setCanceledOnTouchOutside(true);     //no touch works until Authentication
         }
 
     }
